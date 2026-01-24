@@ -1,7 +1,7 @@
 game:GetService("StarterGui"):SetCore("SendNotification", {
   Title = "小西通用脚本",
   Text = "欢迎使用小西脚本",
-  Icon = "rbxassetid://85610766795193",
+  Icon = "rbxassetid://83658046607003",
   Duration = 1,
   Callback = bindable,
   Button1 = "脚本功能多多",
@@ -6874,4 +6874,5 @@ end)
 r50_0:Tab("『汽车经销大亨』", "18930406865"):section("整合脚本", true):Button("皮脚本-汽车经销大亨", function()
   
   loadstring(game:HttpGet([[https://raw.githubusercontent.com/xiaopi77/Integration-script/refs/heads/main/Roblox-Pi-Script-Automobiledealertycoon.lua]]))()
+
 end)    

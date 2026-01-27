@@ -390,7 +390,10 @@ Tab_Announce:Label("严禁倒卖 倒卖无制无母")
 Tab_Announce:Label("有时间就会更新")
 
 -- ==================== 战新提示 Tab ====================
-local Tab_Alerts = UI_Window:Tab("《战新提示》", "18930406865"):section("战新提示", true)
+local Tab_Alerts = UI_Window:Tab("《战新提示》", 
+"18930406865"):section("战新提示", true)
+
+local about = UITab43:section("『刀刃球』",true)
 
 about:Button("禁漫中心",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/dingding123hhh/ghbdrc/main/%E4%B8%81%E4%B8%81%E5%88%80%E5%88%83%E7%90%83.txt"))()

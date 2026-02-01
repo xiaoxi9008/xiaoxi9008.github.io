@@ -207,7 +207,7 @@ local function Popup_VerifyKuaishou()
     local done = false
     
     createButton(frame, "验证快手号", UDim2.new(0.45, 0, 0, 35), UDim2.new(0.1, 0, 0, 175), function()
-        if inputKuaishou.Text == "CN_QRNBYYDS" then
+        if inputKuaishou.Text == "xiaoxinb666" then
             done = true
             gui:Destroy()
         else

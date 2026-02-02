@@ -1803,8 +1803,8 @@ local function create12Content(container)
     -- 按钮数据（含说明）
     local buttons = {
         {
-            name = "ink-game(测试版)",
-            url = "https://raw.githubusercontent.com/TexRBLX/Roblox-stuff/refs/heads/main/ink-game/testing.lua",
+            name = "i傻逼",
+            url = "https://raw.githubusercontent.com/xiaoxi9008/xiaoxi9008.github.io/refs/heads/main/%E7%9A%AE%E8%84%9A%E6%9C%ACohio.lua",
             desc = "全面取消汉化🤝🤓👆"
         },
         {
@@ -1815,13 +1815,13 @@ local function create12Content(container)
     }
 local injectors = {
     {
-    name = "Xa老外脚本新版(点击复制脚本)",
+    name = "傻逼玩意儿",
     url = [[script_key = "你的卡密"
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/2401c37b94195677018fb18f72dec3fe.lua"))()]],
     desc = "脚本使用说明和介绍\n首先你复制完成之后点击下面解卡链接解完卡\n之后复制这个脚本然后弄到\n注入器里面输入自己的卡密执行即可"
         },
         {
-            name = "Xa老外脚本新版(点击复制解卡链接)",
+            name = "Xa老外脚本新版()",
             url = "https://ads.luarmor.net/get_key?for=AX__KEY_SYSTEM-AEkCrvrYBzna",
             desc = "点击去浏览器里面解卡密需要登录DC软件才可以解卡密"
         }

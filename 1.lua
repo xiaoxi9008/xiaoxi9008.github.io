@@ -353,3 +353,167 @@ Callback = function(value)
 tpWalkMode = value
 end
 })
+
+local Tab = Window:Tab({
+	Title = "刷钱",
+})
+Tab:Select()
+
+Tab:Toggle({
+	Title = "自动ATM",
+Default = false,
+Callback = function(Value)
+autoATMCashCombo = Value
+if autoATMCashCombo then
+local function collectCash()
+local player = game:GetService("Players").LocalPlayer
+local cashSize = Vector3.new(2, 0.2499999850988388, 1)
+for _, part in ipairs(workspace.Game.Entities.CashBundle:GetDescendants()) do
+if part:IsA("BasePart") and part.Size == cashSize then
+player.Character.HumanoidRootPart.CFrame = part.CFrame
+task.wait()
+end
+end
+end
+coroutine.wrap(function()
+while autoATMCashCombo and task.wait() do
+local ATMsFolder = workspace:FindFirstChild("ATMs")
+local localPlayer = game:GetService("Players").LocalPlayer
+local hasActiveATM = false
+if ATMsFolder and localPlayer.Character then
+for _, atm in ipairs(ATMsFolder:GetChildren()) do
+if atm:IsA("Model") then
+local hp = atm:GetAttribute("health")
+if hp ~= 0 then
+hasActiveATM = true
+for _, part in ipairs(atm:GetChildren()) do
+if part.Name == "Main" and part:IsA("BasePart") then
+localPlayer.Character.HumanoidRootPart.CFrame = part.CFrame
+task.wait()
+atm:SetAttribute("health", 0)
+break
+end
+end
+task.wait()
+end
+end
+end
+end
+if hasActiveATM then
+task.wait(1)
+else
+collectCash()
+task.wait()
+end
+end
+end)()
+end
+end
+})
+
+Tab:Toggle({
+	Title = "自动抢银行",
+Value = false,
+Callback = function(state)
+autobank = state
+if autobank then
+startBankRobberyLoop()
+else
+stopBankRobberyLoop()
+end
+end
+})
+
+Tab:Toggle({
+	Title = "现金光环",
+Value = false,
+Callback = function(state)
+cashAuraEnabled = state
+if state then
+task.spawn(function()
+while cashAuraEnabled do
+for _, cash in pairs(Workspace.Game.Entities.CashBundle:GetChildren()) do
+if not cashAuraEnabled then break end
+if cash:FindFirstChildOfClass("Part") then
+local part = cash:FindFirstChildOfClass("Part")
+local distance = (HumanoidRootPart.Position - part.Position).magnitude
+if distance <= 30 and cash:FindFirstChildOfClass("ClickDetector") then
+fireclickdetector(cash:FindFirstChildOfClass("ClickDetector"))
+end
+end
+end
+task.wait(0.1)
+end
+end)
+end
+end
+})
+
+Tab:Toggle({
+	Title = "自动捡钱",
+Default = false,
+Callback = function(Value)
+setting.autoMoney = Value
+if Value then
+task.spawn(function()
+while setting.autoMoney and task.wait(0.1) do
+fastCollectMoney()
+end
+end)
+end
+end
+})
+
+local Tab = Window:Tab({
+	Title = "免费通行证",
+})
+Tab:Select()
+
+Window:Tab({Title = "本地", Icon = "box"})
+Main:Section({ Title = "免费物品", Icon = "swords" })
+local items = {
+"Golden Rose",
+"Black Rose",
+"Dollar Balloon",
+"Bat Balloon",
+"Bunny Balloon",
+"Clover Balloon",
+"Ghost Balloon",
+"Gold Clover Balloon",
+"Heart Balloon",
+"Skull Balloon",
+"Snowflake Balloon",
+"Admin AK-47",
+"Admin Nuke Launcher",
+"Admin RPG",
+"Void Gem",
+"Pulse Rifle",
+"Unusual Money Printer",
+"Money Printer",
+"Trident",
+"NextBot Grenade",
+"El Fuego"
+}
+local itemDisplayNames = {
+["Golden Rose"] = "金玫瑰",
+["Black Rose"] = "黑玫瑰",
+["Dollar Balloon"] = "美元气球",
+["Bat Balloon"] = "蝙蝠气球",
+["Bunny Balloon"] = "兔子气球",
+["Clover Balloon"] = "三叶草气球",
+["Ghost Balloon"] = "幽灵气球",
+["Gold Clover Balloon"] = "金三叶草气球",
+["Heart Balloon"] = "爱心气球",
+["Skull Balloon"] = "骷髅气球",
+["Snowflake Balloon"] = "雪花气球",
+["Admin AK-47"] = "管理员黄金AK-47",
+["Admin Nuke Launcher"] = "管理员核弹发射器",
+["Admin RPG"] = "管理员RPG",
+["Void Gem"] = "虚空宝石",
+["Pulse Rifle"] = "脉冲步枪",
+["Unusual Money Printer"] = "异常印钞机",
+["Money Printer"] = "印钞机",
+["Trident"] = "三叉戟",
+["NextBot Grenade"] = "NextBot手榴弹",
+["El Fuego"] = "烈焰喷射器"
+}

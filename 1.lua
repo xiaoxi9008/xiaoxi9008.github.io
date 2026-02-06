@@ -469,8 +469,8 @@ local Tab = Window:Tab({
 })
 Tab:Select()
 
-Window:Tab({Title = "本地", Icon = "box"})
-Main:Section({ Title = "免费物品", Icon = "swords" })
+Tab:Toggle({
+	Title = "免费物品", Icon = "swords" })
 local items = {
 "Golden Rose",
 "Black Rose",

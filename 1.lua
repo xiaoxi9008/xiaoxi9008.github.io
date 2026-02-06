@@ -512,11 +512,4 @@ game:GetService("ReplicatedStorage"):FindFirstChild("devv"):FindFirstChild("remo
 end
 end
 })
-
-local Tab = Window:Tab({
-	Title = "测试速度",
-})
-Tab:Select()
-
-Tab:Toggle({
 	

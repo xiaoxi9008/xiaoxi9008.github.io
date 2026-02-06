@@ -354,6 +354,19 @@ tpWalkMode = value
 end
 })
 
+Main:Slider({
+Title = "TP行走速度",
+Desc = "设置TP行走的移动速度",
+Value = {
+Min = 0.1,
+Max = 11,
+Default = 3.5
+},
+Callback = function(value)
+tpWalkSpeed = value
+end
+})
+
 local Tab = Window:Tab({
 	Title = "刷钱",
 })
@@ -541,6 +554,5 @@ local Tab = Window:Tab({
 })
 Tab:Select()
 
-Slider(Tab1, "移动速度", 1, 600, game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, function(a) 
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = a
-end)
+Tab:Toggle({
+	

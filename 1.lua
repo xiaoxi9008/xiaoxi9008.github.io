@@ -331,42 +331,6 @@ end
 end
 })
 
-Tab:Toggle({
-	Title = "TP行走速度",
-Desc = "设置TP行走的移动速度",
-Value = {
-Min = 0.1,
-Max = 11,
-Default = 3.5
-},
-Callback = function(value)
-tpWalkSpeed = value
-end
-})
-
-Tab:Toggle({
-	Title = "TP行走模式",
-Desc = "选择TP行走的移动方向",
-Values = {"MoveDirection", "Camera LookVector"},
-Value = "MoveDirection",
-Callback = function(value)
-tpWalkMode = value
-end
-})
-
-Main:Slider({
-Title = "TP行走速度",
-Desc = "设置TP行走的移动速度",
-Value = {
-Min = 0.1,
-Max = 11,
-Default = 3.5
-},
-Callback = function(value)
-tpWalkSpeed = value
-end
-})
-
 local Tab = Window:Tab({
 	Title = "刷钱",
 })

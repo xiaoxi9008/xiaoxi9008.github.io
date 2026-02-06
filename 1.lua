@@ -171,16 +171,61 @@ local Tab = Window:Tab({
 Tab:Select()
 
 Tab:Toggle({
-	Title = "速度倍数",
-Desc = "调整移动速度倍数",
-Value = {
-Min = 1,
-Max = 30,
-Default = 1
-},
-Callback = function(value)
-speedMultiplier = value
-LocalPlayer:SetAttribute("speedModifier", speedMultiplier)
+	Title = "透视",
+Value = false,
+Callback = function(enableESP)
+if enableESP then
+local function ApplyESP(v)
+if v.Character and v.Character:FindFirstChildOfClass'Humanoid' then
+v.Character.Humanoid.NameDisplayDistance = 9e9
+v.Character.Humanoid.NameOcclusion = "NoOcclusion"
+v.Character.Humanoid.HealthDisplayDistance = 9e9
+v.Character.Humanoid.HealthDisplayType = "AlwaysOn"
+v.Character.Humanoid.Health = v.Character.Humanoid.Health
+end
+end
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+for i, v in pairs(Players:GetPlayers()) do
+ApplyESP(v)
+v.CharacterAdded:Connect(function()
+task.wait(0.33)
+ApplyESP(v)
+end)
+end
+Players.PlayerAdded:Connect(function(v)
+ApplyESP(v)
+v.CharacterAdded:Connect(function()
+task.wait(0.33)
+ApplyESP(v)
+end)
+end)
+local espConnection = RunService.Heartbeat:Connect(function()
+for i, v in pairs(Players:GetPlayers()) do
+if v.Character and v.Character:FindFirstChildOfClass'Humanoid' then
+v.Character.Humanoid.NameDisplayDistance = 9e9
+v.Character.Humanoid.NameOcclusion = "NoOcclusion"
+v.Character.Humanoid.HealthDisplayDistance = 9e9
+v.Character.Humanoid.HealthDisplayType = "AlwaysOn"
+end
+end
+end)
+_G.ESPConnection = espConnection
+else
+if _G.ESPConnection then
+_G.ESPConnection:Disconnect()
+_G.ESPConnection = nil
+end
+local Players = game:GetService("Players")
+for i, v in pairs(Players:GetPlayers()) do
+if v.Character and v.Character:FindFirstChildOfClass'Humanoid' then
+v.Character.Humanoid.NameDisplayDistance = 100
+v.Character.Humanoid.NameOcclusion = "OccludeAll"
+v.Character.Humanoid.HealthDisplayDistance = 100
+v.Character.Humanoid.HealthDisplayType = "DisplayWhenDamaged"
+end
+end
+end
 end
 })
 
@@ -283,5 +328,28 @@ end
 end
 end
 end
+end
+})
+
+Tab:Toggle({
+	Title = "TP行走速度",
+Desc = "设置TP行走的移动速度",
+Value = {
+Min = 0.1,
+Max = 11,
+Default = 3.5
+},
+Callback = function(value)
+tpWalkSpeed = value
+end
+})
+
+Tab:Toggle({
+	Title = "TP行走模式",
+Desc = "选择TP行走的移动方向",
+Values = {"MoveDirection", "Camera LookVector"},
+Value = "MoveDirection",
+Callback = function(value)
+tpWalkMode = value
 end
 })

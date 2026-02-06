@@ -469,51 +469,50 @@ local Tab = Window:Tab({
 })
 Tab:Select()
 
-Tab:Toggle({
-	Title = "免费物品", Icon = "swords" })
-local items = {
-"Golden Rose",
-"Black Rose",
-"Dollar Balloon",
-"Bat Balloon",
-"Bunny Balloon",
-"Clover Balloon",
-"Ghost Balloon",
-"Gold Clover Balloon",
-"Heart Balloon",
-"Skull Balloon",
-"Snowflake Balloon",
-"Admin AK-47",
-"Admin Nuke Launcher",
-"Admin RPG",
-"Void Gem",
-"Pulse Rifle",
-"Unusual Money Printer",
-"Money Printer",
-"Trident",
-"NextBot Grenade",
-"El Fuego"
-}
-local itemDisplayNames = {
-["Golden Rose"] = "金玫瑰",
-["Black Rose"] = "黑玫瑰",
-["Dollar Balloon"] = "美元气球",
-["Bat Balloon"] = "蝙蝠气球",
-["Bunny Balloon"] = "兔子气球",
-["Clover Balloon"] = "三叶草气球",
-["Ghost Balloon"] = "幽灵气球",
-["Gold Clover Balloon"] = "金三叶草气球",
-["Heart Balloon"] = "爱心气球",
-["Skull Balloon"] = "骷髅气球",
-["Snowflake Balloon"] = "雪花气球",
-["Admin AK-47"] = "管理员黄金AK-47",
-["Admin Nuke Launcher"] = "管理员核弹发射器",
-["Admin RPG"] = "管理员RPG",
-["Void Gem"] = "虚空宝石",
-["Pulse Rifle"] = "脉冲步枪",
-["Unusual Money Printer"] = "异常印钞机",
-["Money Printer"] = "印钞机",
-["Trident"] = "三叉戟",
-["NextBot Grenade"] = "NextBot手榴弹",
-["El Fuego"] = "烈焰喷射器"
-}
+Main:Section({ Title = "移动设置", Icon = "move" })
+local tpWalkEnabled = false
+local tpWalkMode = "MoveDirection"
+local tpWalkSpeed = 3.5
+Main:Toggle({
+Title = "TP行走",
+Desc = "启用传送行走模式",
+Value = false,
+Callback = function(state)
+tpWalkEnabled = state
+if state then
+local connection = RunService.Heartbeat:Connect(function()
+if tpWalkEnabled and HumanoidRootPart then
+local direction
+if tpWalkMode == "MoveDirection" then
+direction = Humanoid.MoveDirection
+else
+direction = Workspace.CurrentCamera.CFrame.LookVector
+end
+HumanoidRootPart.CFrame = HumanoidRootPart.CFrame + direction * tpWalkSpeed
+HumanoidRootPart.CanCollide = true
+end
+end)
+end
+end
+})
+Main:Dropdown({
+Title = "TP行走模式",
+Desc = "选择TP行走的移动方向",
+Values = {"MoveDirection", "Camera LookVector"},
+Value = "MoveDirection",
+Callback = function(value)
+tpWalkMode = value
+end
+})
+Main:Slider({
+Title = "TP行走速度",
+Desc = "设置TP行走的移动速度",
+Value = {
+Min = 0.1,
+Max = 11,
+Default = 3.5
+},
+Callback = function(value)
+tpWalkSpeed = value
+end
+})

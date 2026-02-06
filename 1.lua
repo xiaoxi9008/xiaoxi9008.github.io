@@ -42,7 +42,7 @@ Tab:Paragraph({
 })
 
 Tab:Paragraph({
-	Title = "此脚本为开源免费",
+	Title = "此脚本为免费",
 	Desc = "如果你是购买的那么恭喜你被骗了",
 })
 
@@ -469,50 +469,78 @@ local Tab = Window:Tab({
 })
 Tab:Select()
 
-Main:Section({ Title = "移动设置", Icon = "move" })
-local tpWalkEnabled = false
-local tpWalkMode = "MoveDirection"
-local tpWalkSpeed = 3.5
-Main:Toggle({
-Title = "TP行走",
-Desc = "启用传送行走模式",
-Value = false,
-Callback = function(state)
-tpWalkEnabled = state
-if state then
-local connection = RunService.Heartbeat:Connect(function()
-if tpWalkEnabled and HumanoidRootPart then
-local direction
-if tpWalkMode == "MoveDirection" then
-direction = Humanoid.MoveDirection
-else
-direction = Workspace.CurrentCamera.CFrame.LookVector
+Tab:Toggle({
+	Title = "绕过移动经销商[新版本]",
+Callback = function()
+local pjyd pjyd=hookmetamethod(game,"__namecall",function(self,...)local args={...}local method=getnamecallmethod()if method=="InvokeServer" and args[2]==true then args[2]=false return pjyd(self,unpack(args))end return pjyd(self,...)end)
+game:GetService("Players").LocalPlayer:SetAttribute("mobileDealer",true)
+local ReplicatedStorage=game:GetService("ReplicatedStorage")
+local mobileDealer=require(ReplicatedStorage.devv.shared.Indicies.mobileDealer)
+for category,items in pairs(mobileDealer)do
+for _,item in ipairs(items)do
+item.stock=999999
 end
-HumanoidRootPart.CFrame = HumanoidRootPart.CFrame + direction * tpWalkSpeed
-HumanoidRootPart.CanCollide = true
 end
+table.insert(mobileDealer.Gun,{itemName="Acid Gun",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Candy Bucket",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Golden Rose",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Black Rose",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Dollar Balloon",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Bat Balloon",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Bunny Balloon",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Clover Balloon",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Ghost Balloon",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Gold Clover Balloon",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Heart Balloon",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Skull Balloon",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Snowflake Balloon",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Admin AK-47",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Admin Nuke Launcher",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Admin RPG",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Void Gem",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Pulse Rifle",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Unusual Money Printer",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Money Printer",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="Trident",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="NextBot Grenade",stock=9999})
+table.insert(mobileDealer.Gun,{itemName="El Fuego",stock=9999})
+end
+})
+
+Tab:Toggle({
+	Title = "绕过高级表情包",
+Callback = function()
+for _, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Emotes.Frame.ScrollingFrame:GetDescendants()) do
+if v.Name == "Locked" then
+v.Visible = false
+end
+end
+end
+})
+
+Tab:Toggle({
+	Title = "绕过物品栏封禁",
+Callback = function()
+if game:GetService("ReplicatedStorage"):FindFirstChild("devv"):FindFirstChild("remoteStorage"):FindFirstChild("makeExplosion") then
+game:GetService("ReplicatedStorage"):FindFirstChild("devv"):FindFirstChild("remoteStorage"):FindFirstChild("makeExplosion"):Destroy()
+end
+end
+})
+
+Tab:Toggle({
+	Title = "绕过飞行检测",
+Callback = function()
+if game:GetService("ReplicatedStorage"):FindFirstChild("devv"):FindFirstChild("remoteStorage"):FindFirstChild("makeExplosion") then
+game:GetService("ReplicatedStorage"):FindFirstChild("devv"):FindFirstChild("remoteStorage"):FindFirstChild("makeExplosion"):Destroy()
+end
+end
+})
+
+local Tab = Window:Tab({
+	Title = "测试速度",
+})
+Tab:Select()
+
+Slider(Tab1, "移动速度", 1, 600, game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, function(a) 
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = a
 end)
-end
-end
-})
-Main:Dropdown({
-Title = "TP行走模式",
-Desc = "选择TP行走的移动方向",
-Values = {"MoveDirection", "Camera LookVector"},
-Value = "MoveDirection",
-Callback = function(value)
-tpWalkMode = value
-end
-})
-Main:Slider({
-Title = "TP行走速度",
-Desc = "设置TP行走的移动速度",
-Value = {
-Min = 0.1,
-Max = 11,
-Default = 3.5
-},
-Callback = function(value)
-tpWalkSpeed = value
-end
-})

@@ -225,3 +225,63 @@ end)
 end
 end
 })
+
+Tab:Toggle({
+	Title = "自动回血",
+Default = false,
+Callback = function(Value)
+if healThread then
+healThread:Disconnect()
+healThread = nil
+end
+if Value then
+local heartbeat = game:GetService("RunService").Heartbeat
+healThread = heartbeat:Connect(function()
+Signal.InvokeServer("attemptPurchase", 'Bandage')
+for _, v in next, item.inventory.items do
+if v.name == 'Bandage' then
+local bande = v.guid
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild('Humanoid')
+if Humanoid.Health >= 5 and Humanoid.Health < Humanoid.MaxHealth then
+Signal.FireServer("equip", bande)
+Signal.FireServer("useConsumable", bande)
+Signal.FireServer("removeItem", bande)
+end
+break
+end
+end
+end)
+end
+end
+})
+
+Tab:Toggle({
+	Title = "自动面具",
+Value = false,
+Callback = function(state)
+autokz = state
+if autokz then
+while autokz and wait(1) do
+local player = game:GetService("Players").LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local Mask = character:FindFirstChild("Hockey Mask")
+local Signal = require(game:GetService("ReplicatedStorage").devv).load("Signal")
+local b1 = require(game:GetService('ReplicatedStorage').devv).load('v3item').inventory.items
+if not Mask then
+Signal.InvokeServer("attemptPurchase", "Hockey Mask")
+for i, v in next, b1 do
+if v.name == "Hockey Mask" then
+sugid = v.guid
+if not Mask then
+Signal.FireServer("equip", sugid)
+Signal.FireServer("wearMask", sugid)
+end
+break
+end
+end
+end
+end
+end
+end
+})

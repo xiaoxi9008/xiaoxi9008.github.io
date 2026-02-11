@@ -1,6 +1,3 @@
----     笑死我了沙比messy还没听我说完就飞我群😂😂😂你妈去哪了培根都被你赶出去了我也就这样了
----     也不是非得泛滥你问问Yg说了什么
----   XS
 if game.PlaceId == 120217704230083 then
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/gycgchgyfytdttr/shenqin/refs/heads/main/ui.lua"))()
 WindUI.TransparencyValue = 0.2

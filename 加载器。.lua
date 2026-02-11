@@ -14,6 +14,11 @@ local Window = WindUI:CreateWindow({
     AuthorImage = 90840643379863,
     Folder = "CloudHub",
     Size = UDim2.fromOffset(560, 360),
+    KeySystem = {
+        Key = { "xiaoxi2026", "kxm123456" }, 
+        Note = "请输入卡密",
+        SaveKey = false,
+    },
     Transparent = true,
     User = {
         Enabled = true,

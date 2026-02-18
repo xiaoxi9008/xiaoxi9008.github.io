@@ -7,7 +7,6 @@ _G.XION_Script_Loaded = true
 _G.XION_Execution_Count = 1
 
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
-local Window = WindUI:CreateWindow({
 local VIP_USERS = {
     "hnperezho647",  -- 示例用户1
     "Player2",  -- 示例用户2

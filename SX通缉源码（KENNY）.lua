@@ -404,7 +404,7 @@ function createUI()
         HideSearchBar = false,
         ScrollBarEnabled = true,
         Resizable = true,
-        Background = "https://raw.githubusercontent.com/SQ182/y/c713ef1eeed1dc6b50e547dcbfee45034c385bf9/image_download_1768053890832.jpg",
+        Background = "rbxassetid://122305865891820",
         BackgroundImageTransparency = 0.5,
         User = {
             Enabled = true,

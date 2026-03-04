@@ -508,6 +508,14 @@ Tabs.BladeTab:Toggle({
     end
 })
 
+Tabs.BladeTab:Toggle({
+    Title = "自动大四",
+    Default = false,
+    Callback = function(state)
+autostomp = state
+end
+})
+
 Tabs.BladeTab:Slider({
     Title = "不攻击生命值",
     Value = {
@@ -797,7 +805,14 @@ end
 Tabs.MoneyTab:Toggle({
     Title = "银行光环",
     Value = false,
-    Callback = function(Value1, Value2, Value3, Value4, Value5, Value6) end,
+    Callback = function(state) 
+        autobank = state
+        if autobank then
+            startBankRobberyLoop()
+        else
+            stopBankRobberyLoop()
+        end
+    end
 })
 
 local autoATMCashCombo = false
@@ -960,6 +975,12 @@ Tabs.BypassTab:Button({
         end
     end
 })
+
+Tabs.BypassTab:Button({
+    Title = "飞行",
+    function() 
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Invinicible-Flight-R15-45414"))() 
+end)
 
 Tabs.BypassTab:Button({
     Title = "绕过物品栏封禁",
@@ -1164,6 +1185,65 @@ Tabs.PlayerTab:Slider({
     Callback = function(Value)
         Speed = Value
     end
+})
+
+Tabs.PlayerTab:Toggle({
+    Title = "显示名称",
+    Default = false,
+    Callback = function(enableESP)
+if enableESP then
+local function ApplyESP(v)
+if v.Character and v.Character:FindFirstChildOfClass'Humanoid' then
+v.Character.Humanoid.NameDisplayDistance = 9e9
+v.Character.Humanoid.NameOcclusion = "NoOcclusion"
+v.Character.Humanoid.HealthDisplayDistance = 9e9
+v.Character.Humanoid.HealthDisplayType = "AlwaysOn"
+v.Character.Humanoid.Health = v.Character.Humanoid.Health
+end
+end
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+for i, v in pairs(Players:GetPlayers()) do
+ApplyESP(v)
+v.CharacterAdded:Connect(function()
+task.wait(0.33)
+ApplyESP(v)
+end)
+end
+Players.PlayerAdded:Connect(function(v)
+ApplyESP(v)
+v.CharacterAdded:Connect(function()
+task.wait(0.33)
+ApplyESP(v)
+end)
+end)
+local espConnection = RunService.Heartbeat:Connect(function()
+for i, v in pairs(Players:GetPlayers()) do
+if v.Character and v.Character:FindFirstChildOfClass'Humanoid' then
+v.Character.Humanoid.NameDisplayDistance = 9e9
+v.Character.Humanoid.NameOcclusion = "NoOcclusion"
+v.Character.Humanoid.HealthDisplayDistance = 9e9
+v.Character.Humanoid.HealthDisplayType = "AlwaysOn"
+end
+end
+end)
+_G.ESPConnection = espConnection
+else
+if _G.ESPConnection then
+_G.ESPConnection:Disconnect()
+_G.ESPConnection = nil
+end
+local Players = game:GetService("Players")
+for i, v in pairs(Players:GetPlayers()) do
+if v.Character and v.Character:FindFirstChildOfClass'Humanoid' then
+v.Character.Humanoid.NameDisplayDistance = 100
+v.Character.Humanoid.NameOcclusion = "OccludeAll"
+v.Character.Humanoid.HealthDisplayDistance = 100
+v.Character.Humanoid.HealthDisplayType = "DisplayWhenDamaged"
+end
+end
+end
+end
 })
 
 Tabs.PlayerTab:Toggle({
